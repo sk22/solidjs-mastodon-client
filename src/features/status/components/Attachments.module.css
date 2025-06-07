@@ -1,0 +1,8 @@
+.attachments {
+	margin-block-start: 0.5rem;
+	max-width: unset;
+
+	& > * {
+		max-width: 100%;
+	}
+}

@@ -1,0 +1,42 @@
+.status + .status {
+	border-top: var(--size-border) solid var(--color-border-secondary);
+}
+
+.status {
+	padding-block: 1rem;
+	opacity: 1;
+	transition: 0.3s ease opacity;
+
+	& > * {
+		width: 100%;
+		max-width: var(--size-max-width);
+		margin-inline: auto;
+	}
+
+	@starting-style {
+		opacity: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	p + p {
+		margin-block-start: 0.5rem;
+	}
+}
+
+.content {
+	max-width: var(--size-max-width);
+	overflow: clip;
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+.time {
+	max-width: var(--size-max-width);
+	margin-inline: auto;
+	display: block;
+	margin-top: 0.5rem;
+	font-size: 0.8rem;
+}

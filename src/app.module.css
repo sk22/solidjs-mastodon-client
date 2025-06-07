@@ -1,0 +1,22 @@
+:root {
+	font-family: sans-serif;
+	color-scheme: light dark;
+
+	--color-text: light-dark(#111, #eee);
+	--color-text-secondary: light-dark(#333, #ccc);
+	--color-text-disabled: light-dark(#999, #777);
+	--color-link: light-dark(mediumvioletred, hotpink);
+	--color-border-secondary: #aaa;
+	--size-border: 0.05rem;
+	--size-max-width: calc(100vw - 2rem);
+}
+
+body {
+	margin: 0;
+	color: var(--color-text);
+}
+
+a,
+a:visited {
+	color: var(--color-link);
+}

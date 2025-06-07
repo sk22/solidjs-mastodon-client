@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"strictNullChecks": true,
+		"noUncheckedIndexedAccess": true,
+		"esModuleInterop": true,
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+		"types": [
+			"vite-plugin-solid-svg/types",
+			"vite/client",
+			"@testing-library/jest-dom"
+		],
+		"paths": {
+			"~/*": ["./src/*"]
+		}
+	}
+}

@@ -1,0 +1,25 @@
+.icon-button {
+	width: 2.25rem;
+	height: 2.25rem;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	transition: 0.1s ease;
+	transition-property: background-color, scale, color;
+	fill: currentColor;
+	border-radius: 100%;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	&:disabled {
+		color: var(--color-text-disabled);
+	}
+
+	&:active {
+		scale: 0.9;
+		color: var(--color-text-disabled);
+	}
+}

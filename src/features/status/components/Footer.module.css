@@ -1,0 +1,19 @@
+.footer {
+	margin-block-start: 1rem;
+
+	& > :first-child {
+		margin-inline-start: -0.375rem;
+	}
+}
+
+.bookmarked {
+	color: cadetblue;
+}
+
+.favorited {
+	color: orange;
+}
+
+.reblogged {
+	color: var(--color-link);
+}
