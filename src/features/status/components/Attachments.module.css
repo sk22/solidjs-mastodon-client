@@ -4,9 +4,6 @@
 
 	& > * {
 		max-width: 100%;
-	}
-
-	img {
 		aspect-ratio: var(--_aspect-ratio, unset);
 	}
 }
