@@ -1,8 +1,9 @@
 import { createEffect, For, Match, Switch } from "solid-js";
 import { useInfiniteQuery } from "@tanstack/solid-query";
 import { createWindowVirtualizer } from "@tanstack/solid-virtual";
-import Status from "~/features/status/index";
 import { infiniteQueryTimeline } from "../query/queries";
+import Status from "~/features/status/index";
+import styles from "./Timeline.module.css";
 
 export default function Timeline() {
 	const query = useInfiniteQuery(() => infiniteQueryTimeline);
@@ -38,13 +39,8 @@ export default function Timeline() {
 
 	return (
 		<main
-			style={{
-				position: "relative",
-				overflow: "hidden",
-				height: `${virtualizer.getTotalSize()}px`,
-				"margin-inline": "auto",
-				"max-width": "80ch",
-			}}
+			class={styles.timeline}
+			style={{ height: `${virtualizer.getTotalSize()}px` }}
 		>
 			<Switch>
 				<Match when={query.isPending}>momenterl</Match>

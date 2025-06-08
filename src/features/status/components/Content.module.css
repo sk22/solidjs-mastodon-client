@@ -1,0 +1,12 @@
+.content {
+	/* max-width: var(--size-max-width); */
+	overflow: clip;
+	overflow-wrap: break-word;
+	hyphens: auto;
+	transition: 0.3s ease max-height;
+	max-height: auto;
+}
+
+.content[data-truncated="true"] {
+	max-height: 8rem;
+}

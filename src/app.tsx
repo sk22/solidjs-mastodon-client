@@ -2,7 +2,7 @@ import { lazy, Suspense } from "solid-js";
 import { QueryClientProvider } from "@tanstack/solid-query";
 import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { queryClient } from "./lib/query-client";
-import "./app.module.css";
+import "./styles/app.css";
 
 const Timeline = lazy(() => import("./features/timeline/index"));
 

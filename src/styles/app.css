@@ -1,19 +1,24 @@
 :root {
 	font-family: sans-serif;
 	color-scheme: light dark;
+	accent-color: hotpink;
 
 	--color-text: light-dark(#111, #eee);
 	--color-text-secondary: light-dark(#333, #ccc);
 	--color-text-disabled: light-dark(#999, #777);
 	--color-link: light-dark(mediumvioletred, hotpink);
-	--color-border-secondary: #aaa;
+	--color-border-secondary: light-dark(#aaa, #333);
 	--size-border: 0.05rem;
-	--size-max-width: calc(100vw - 2rem);
+	--size-max-width: min(40rem, calc(100vw - 2rem));
+	--size-max-width-full: min(40rem, 100vw);
 }
 
 body {
-	margin: 0;
 	color: var(--color-text);
+}
+
+svg {
+	fill: currentColor;
 }
 
 a,

@@ -1,6 +1,6 @@
 .attachments {
 	margin-block-start: 1rem;
-	max-width: unset;
+	max-width: var(--size-max-width-full);
 
 	& > * {
 		max-width: 100%;

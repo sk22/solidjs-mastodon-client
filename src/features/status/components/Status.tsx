@@ -1,9 +1,9 @@
-import { Show, splitProps, type ComponentProps } from "solid-js";
+import { splitProps, type ComponentProps } from "solid-js";
 import styles from "./Status.module.css";
 import type { Entity } from "megalodon";
 import Header from "./Header";
 import Footer from "./Footer";
-import Attachments from "./Attachments";
+import Content from "./Content";
 
 export default function Status(
 	props: { status: Entity.Status } & ComponentProps<"article">,
@@ -15,14 +15,7 @@ export default function Status(
 	return (
 		<article class={styles.status} {...articleProps}>
 			<Header status={statusProps.status} />
-			<div
-				lang={status.language ?? undefined}
-				class={styles.content}
-				innerHTML={status.content}
-			/>
-			<Show when={status.media_attachments.length > 0}>
-				<Attachments status={status} />
-			</Show>
+			<Content status={status} />
 			<time class={styles.time}>
 				<a href={status.url}>
 					{new Date(status.created_at).toLocaleString()}

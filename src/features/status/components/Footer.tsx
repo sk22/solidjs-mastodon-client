@@ -5,6 +5,8 @@ import RepeatFilled from "@fluentui/svg-icons/icons/arrow_repeat_all_24_filled.s
 import RepeatRegular from "@fluentui/svg-icons/icons/arrow_repeat_all_24_regular.svg?component-solid";
 import BookmarkFilled from "@fluentui/svg-icons/icons/bookmark_24_filled.svg?component-solid";
 import BookmarkRegular from "@fluentui/svg-icons/icons/bookmark_24_regular.svg?component-solid";
+import ChatMultipleRegular from "@fluentui/svg-icons/icons/chat_multiple_24_regular.svg?component-solid";
+
 import {
 	useMutationBookmark,
 	useMutationFavorite,
@@ -36,26 +38,15 @@ export default function Footer(
 	return (
 		<footer class={styles.footer} {...footerProps}>
 			<button
-				title={lookFavorited() ? "unfavorite" : "favorite"}
+				title="reply (not implemented)"
 				class={buttonStyles.iconButton}
-				disabled={favorite.isPending}
-				onClick={() =>
-					favorite.mutate([
-						statusProps.status.id,
-						!statusProps.status.favourited,
-					])
-				}
+				disabled
 			>
-				{lookFavorited() ? (
-					<StarFilled class={styles.favorited} role="img" />
-				) : (
-					<StarRegular role="img" />
-				)}
+				<ChatMultipleRegular role="img" />
 			</button>
 			<button
 				title={lookReblogged() ? "remove reblog" : "reblog"}
 				class={buttonStyles.iconButton}
-				disabled={reblog.isPending}
 				onClick={() =>
 					reblog.mutate([
 						statusProps.status.id,
@@ -70,9 +61,24 @@ export default function Footer(
 				)}
 			</button>
 			<button
+				title={lookFavorited() ? "unfavorite" : "favorite"}
+				class={buttonStyles.iconButton}
+				onClick={() =>
+					favorite.mutate([
+						statusProps.status.id,
+						!statusProps.status.favourited,
+					])
+				}
+			>
+				{lookFavorited() ? (
+					<StarFilled class={styles.favorited} role="img" />
+				) : (
+					<StarRegular role="img" />
+				)}
+			</button>
+			<button
 				title={lookBookmarked() ? "remove bookmark" : "bookmark"}
 				class={buttonStyles.iconButton}
-				disabled={bookmark.isPending}
 				onClick={() =>
 					bookmark.mutate([
 						statusProps.status.id,

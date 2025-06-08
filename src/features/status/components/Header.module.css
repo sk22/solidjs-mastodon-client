@@ -22,8 +22,10 @@
 	border-radius: 100%;
 }
 
-.avatar-wrapper {
+.avatar-link {
+	border-radius: 100%;
 	grid-area: avatar;
+	outline-offset: 0.2rem;
 }
 
 .avatar {
@@ -34,10 +36,15 @@
 }
 
 .display-name,
-.username {
+.username,
+.reblog-username {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.reblog-icon {
+	flex-shrink: 0;
 }
 
 .display-name {
