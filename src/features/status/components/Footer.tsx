@@ -54,11 +54,12 @@ export default function Footer(
 					])
 				}
 			>
-				{lookReblogged() ? (
-					<RepeatFilled class={styles.reblogged} role="img" />
-				) : (
-					<RepeatRegular role="img" />
-				)}
+				<RepeatRegular role="img" />
+				<RepeatFilled
+					data-visible={lookReblogged()}
+					class={styles.reblogged}
+					role="img"
+				/>
 			</button>
 			<button
 				title={lookFavorited() ? "unfavorite" : "favorite"}
@@ -70,11 +71,12 @@ export default function Footer(
 					])
 				}
 			>
-				{lookFavorited() ? (
-					<StarFilled class={styles.favorited} role="img" />
-				) : (
-					<StarRegular role="img" />
-				)}
+				<StarRegular role="img" />
+				<StarFilled
+					data-visible={lookFavorited()}
+					class={styles.favorited}
+					role="img"
+				/>
 			</button>
 			<button
 				title={lookBookmarked() ? "remove bookmark" : "bookmark"}
@@ -86,11 +88,12 @@ export default function Footer(
 					])
 				}
 			>
-				{lookBookmarked() ? (
-					<BookmarkFilled class={styles.bookmarked} role="img" />
-				) : (
-					<BookmarkRegular role="img" />
-				)}
+				<BookmarkRegular role="img" />
+				<BookmarkFilled
+					data-visible={lookBookmarked()}
+					class={styles.bookmarked}
+					role="img"
+				/>
 			</button>
 			<button
 				title="share (not implemented)"

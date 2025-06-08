@@ -7,12 +7,19 @@
 	border: none;
 	padding: 0;
 	margin: 0;
-	transition: var(--duration-short) ease;
-	transition-property: background-color, scale, color;
+	transition:
+		var(--duration-short) ease scale,
+		var(--duration-short) ease color,
+		var(--duration-short) ease opacity,
+		var(--duration-long) ease background-color;
 	border-radius: 100%;
 
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.05);
+	& > * {
+		grid-area: 1 / 1;
+	}
+
+	& > [data-visible="false"] {
+		opacity: 0;
 	}
 
 	&:disabled,
@@ -23,5 +30,12 @@
 	&:active {
 		scale: 0.9;
 		color: var(--color-text-disabled);
+		background-color: var(--color-background-hover);
+	}
+}
+
+@media (hover: hover) {
+	.icon-button:not(:disabled):hover {
+		background-color: var(--color-background-hover);
 	}
 }
