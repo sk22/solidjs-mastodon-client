@@ -18,8 +18,9 @@ export function useMutationReblog() {
 	return useMutation(() => ({
 		mutationFn: ([id, reblog]: [id: string, reblog: boolean]) =>
 			reblog ? client.reblogStatus(id) : client.unreblogStatus(id),
-		onSuccess(status, [id]) {
-			updateStatus(id, status.data);
+		onSuccess(status, [id, reblog]) {
+			if (reblog) updateStatus(id, status.data.reblog!);
+			else updateStatus(id, status.data);
 		},
 	}));
 }

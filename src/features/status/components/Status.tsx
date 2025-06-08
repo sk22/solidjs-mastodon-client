@@ -24,11 +24,11 @@ export default function Status(
 				<Attachments status={status} />
 			</Show>
 			<time class={styles.time}>
-				<a href={statusProps.status.url}>
-					{new Date(statusProps.status.created_at).toLocaleString()}
+				<a href={status.url}>
+					{new Date(status.created_at).toLocaleString()}
 				</a>
 			</time>
-			<Footer status={statusProps.status} />
+			<Footer status={status} />
 		</article>
 	);
 }
