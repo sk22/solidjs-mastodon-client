@@ -8,9 +8,25 @@
 	--color-text-disabled: light-dark(#999, #777);
 	--color-link: light-dark(mediumvioletred, hotpink);
 	--color-border-secondary: light-dark(#aaa, #333);
+
 	--size-border: 0.05rem;
 	--size-max-width: min(40rem, calc(100vw - 2rem));
 	--size-max-width-full: min(40rem, 100vw);
+	--size-min-touch-target: 3rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:root {
+		--duration-short: 0.1s;
+		--duration-medium: 0.2s;
+		--duration-long: 0.3s;
+	}
+}
+
+@media (pointer: fine) {
+	:root {
+		--size-min-touch-target: 2.25rem;
+	}
 }
 
 body {
@@ -24,4 +40,18 @@ svg {
 a,
 a:visited {
 	color: var(--color-link);
+}
+
+details::details-content {
+	opacity: 0;
+	block-size: 0;
+	transition: var(--duration-medium) ease;
+	transition-property: content-visibility, opacity, block-size, padding;
+	transition-behavior: allow-discrete;
+}
+
+details[open]::details-content {
+	opacity: 1;
+	padding-block-start: 0.5rem;
+	block-size: auto;
 }

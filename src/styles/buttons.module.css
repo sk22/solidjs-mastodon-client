@@ -1,13 +1,13 @@
 .icon-button {
-	inline-size: 2.25rem;
-	block-size: 2.25rem;
+	inline-size: var(--size-min-touch-target);
+	block-size: var(--size-min-touch-target);
 	display: inline grid;
 	place-items: center;
 	background: none;
 	border: none;
 	padding: 0;
 	margin: 0;
-	transition: 0.1s ease;
+	transition: var(--duration-short) ease;
 	transition-property: background-color, scale, color;
 	border-radius: 100%;
 

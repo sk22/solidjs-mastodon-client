@@ -6,7 +6,7 @@ import RepeatRegular from "@fluentui/svg-icons/icons/arrow_repeat_all_24_regular
 import BookmarkFilled from "@fluentui/svg-icons/icons/bookmark_24_filled.svg?component-solid";
 import BookmarkRegular from "@fluentui/svg-icons/icons/bookmark_24_regular.svg?component-solid";
 import ChatMultipleRegular from "@fluentui/svg-icons/icons/chat_multiple_24_regular.svg?component-solid";
-
+import ShareRegular from "@fluentui/svg-icons/icons/share_24_regular.svg?component-solid";
 import {
 	useMutationBookmark,
 	useMutationFavorite,
@@ -91,6 +91,13 @@ export default function Footer(
 				) : (
 					<BookmarkRegular role="img" />
 				)}
+			</button>
+			<button
+				title="share (not implemented)"
+				class={buttonStyles.iconButton}
+				disabled
+			>
+				<ShareRegular role="img" />
 			</button>
 		</footer>
 	);
