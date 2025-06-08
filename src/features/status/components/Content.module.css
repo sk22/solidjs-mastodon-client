@@ -5,6 +5,10 @@
 	hyphens: auto;
 	transition: var(--duration-medium) ease max-height;
 	max-height: auto;
+
+	p + p {
+		margin-block-start: 0.75rem;
+	}
 }
 
 .content[data-truncated="true"] {

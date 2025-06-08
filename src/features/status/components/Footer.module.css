@@ -11,6 +11,7 @@
 @container status (min-width: 40rem) {
 	.footer {
 		justify-content: start;
+
 		& > :first-child {
 			margin-inline-start: calc(-1 * var(--_icon-button-padding));
 		}
