@@ -1,15 +1,18 @@
-import { createEffect, For, Match, Switch } from "solid-js";
-import { useInfiniteQuery } from "@tanstack/solid-query";
+import { createEffect, For } from "solid-js";
 import { createWindowVirtualizer } from "@tanstack/solid-virtual";
-import { infiniteQueryTimeline } from "../query/queries";
 import Status from "~/features/status/index";
 import styles from "./Timeline.module.css";
+import type { Entity } from "megalodon";
 
-export default function Timeline() {
-	const query = useInfiniteQuery(() => infiniteQueryTimeline);
+export default function Timeline(props: {
+	data?: Entity.Status[];
+	fetchNextPage?: () => void;
+	hasNextPage?: boolean;
+	isFetchingNextPage?: boolean;
+}) {
 	let instance: typeof virtualizer;
 	const virtualizer = createWindowVirtualizer({
-		count: query.data?.length ?? 0,
+		count: props.data?.length ?? 0,
 		estimateSize: () => 100,
 		onChange(i) {
 			if (instance === undefined) instance = i;
@@ -18,8 +21,8 @@ export default function Timeline() {
 
 	createEffect(() => {
 		// update count and notify virtualizer of change
-		if (query.data && query.data.length !== virtualizer.options.count) {
-			virtualizer.options.count = query.data.length;
+		if (props.data && props.data.length !== virtualizer.options.count) {
+			virtualizer.options.count = props.data.length;
 			virtualizer.options.onChange(instance, virtualizer.isScrolling);
 		}
 	});
@@ -29,11 +32,11 @@ export default function Timeline() {
 		const lastItem = virtualizer.getVirtualItems().at(-1);
 		if (
 			lastItem &&
-			lastItem.index >= (query.data?.length ?? 0) - 20 &&
-			query.hasNextPage &&
-			!query.isFetchingNextPage
+			lastItem.index >= (props.data?.length ?? 0) - 20 &&
+			props.hasNextPage &&
+			!props.isFetchingNextPage
 		) {
-			query.fetchNextPage();
+			props.fetchNextPage?.();
 		}
 	});
 
@@ -42,33 +45,23 @@ export default function Timeline() {
 			class={styles.timeline}
 			style={{ height: `${virtualizer.getTotalSize()}px` }}
 		>
-			<Switch>
-				<Match when={query.isPending}>momenterl</Match>
-				<Match when={query.isError}>
-					<p>Error: {query.error!.message}</p>
-				</Match>
-				<Match when={query.isSuccess}>
-					<For each={virtualizer.getVirtualItems()}>
-						{(row) => (
-							<Status
-								status={query.data![row.index]!}
-								data-index={row.index}
-								ref={(el) =>
-									window.queueMicrotask(() =>
-										virtualizer.measureElement(el),
-									)
-								}
-								style={{
-									position: "absolute",
-									top: "0px",
-									"inset-inline": "0px",
-									translate: `0 ${row.start}px`,
-								}}
-							/>
-						)}
-					</For>
-				</Match>
-			</Switch>
+			<For each={virtualizer.getVirtualItems()}>
+				{(row) => (
+					<Status
+						status={props.data![row.index]!}
+						data-index={row.index}
+						ref={(el) =>
+							window.queueMicrotask(() => virtualizer.measureElement(el))
+						}
+						style={{
+							position: "absolute",
+							top: "0px",
+							"inset-inline": "0px",
+							translate: `0 ${row.start}px`,
+						}}
+					/>
+				)}
+			</For>
 		</main>
 	);
 }

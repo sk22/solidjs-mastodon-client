@@ -1,6 +1,9 @@
-import { InfiniteData, infiniteQueryOptions } from "@tanstack/solid-query";
+import {
+	InfiniteData,
+	infiniteQueryOptions,
+	queryOptions,
+} from "@tanstack/solid-query";
 import { client } from "~/lib/client";
-import type { Entity } from "megalodon";
 
 export type InfiniteDataTimeline = InfiniteData<
 	Awaited<ReturnType<typeof client.getPublicTimeline>>
@@ -22,8 +25,10 @@ export type InfiniteDataTimeline = InfiniteData<
 // 	}
 // }
 
-export const infiniteQueryTimeline = infiniteQueryOptions({
-	queryKey: ["timeline"],
+export const queryKeyAllTimelines = ["timeline"] as const;
+
+export const infiniteQueryHomeTimeline = infiniteQueryOptions({
+	queryKey: [...queryKeyAllTimelines, "home"],
 	initialPageParam: {} as { max_id?: string; min_id?: string },
 	staleTime: Infinity,
 	queryFn: ({ pageParam }) => client.getHomeTimeline({ ...pageParam }),

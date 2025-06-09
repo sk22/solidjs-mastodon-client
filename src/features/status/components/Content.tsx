@@ -1,23 +1,22 @@
-import { createSignal, Show, splitProps } from "solid-js";
+import { Show, splitProps } from "solid-js";
 import Attachments from "./Attachments";
 import styles from "./Content.module.css";
 import type { Entity } from "megalodon";
+import { useNavigate } from "@solidjs/router";
 
 export default function Content(props: { status: Entity.Status }) {
 	const [statusProps] = splitProps(props, ["status"]);
 
 	return (
 		<>
-			{statusProps.status.spoiler_text.length ? (
+			{statusProps.status.spoiler_text.length ?
 				<details class={styles.details}>
 					<summary class={styles.spoiler}>
 						{statusProps.status.spoiler_text}
 					</summary>
 					<Inner status={statusProps.status} />
 				</details>
-			) : (
-				<Inner status={statusProps.status} />
-			)}
+			:	<Inner status={statusProps.status} />}
 		</>
 	);
 }

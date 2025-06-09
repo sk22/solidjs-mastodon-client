@@ -1,8 +1,17 @@
 import { queryClient } from "~/lib/query-client";
 import type { Entity } from "megalodon";
-import type { InfiniteDataTimeline } from "~/features/timeline/index";
+import {
+	queryKeyAllTimelines,
+	type InfiniteDataTimeline,
+} from "~/features/timeline/index";
 import { modifyMutable } from "solid-js/store";
 import { getModifier, type MutableUpdater } from "~/utils/query-utils";
+import {
+	DataStatus,
+	DataStatusContext,
+	queryStatus,
+	queryStatusContext,
+} from "./queries";
 
 export const updateStatus = (
 	id: string,
@@ -14,8 +23,45 @@ export const updateStatus = (
 			"updateStatus: id of updater object doesn't match the specified id",
 		);
 	}
-	return queryClient.setQueryData<InfiniteDataTimeline>(
-		["timeline"],
+	queryClient.setQueriesData<DataStatus>(
+		{
+			queryKey: queryStatus.queryKeyAll,
+			predicate: ({ queryKey }) =>
+				queryKey.length === queryStatus.queryKey("").length,
+		},
+		(data) => {
+			if (!data) return undefined;
+			const status =
+				// the updated status might be hidden in a reblog
+				data.data.id === id ? data.data
+				: data.data.reblog?.id === id ? data.data.reblog
+				: undefined;
+			if (status) modifyMutable(status, getModifier(updater));
+		},
+	);
+	queryClient.setQueriesData<DataStatusContext>(
+		{
+			queryKey: queryStatus.queryKeyAll,
+			predicate: ({ queryKey }) =>
+				queryKey.length === queryStatusContext.queryKey("").length,
+		},
+		(data) => {
+			if (!data) return undefined;
+			const modifier = getModifier(updater);
+			for (const status of [...data.data.ancestors, ...data.data.descendants]) {
+				const s =
+					status.id === id ? status
+					: status.reblog?.id === id ? status.reblog
+					: undefined;
+				if (s) {
+					modifyMutable(s, modifier);
+					break;
+				}
+			}
+		},
+	);
+	queryClient.setQueriesData<InfiniteDataTimeline>(
+		{ queryKey: queryKeyAllTimelines },
 		(data) => {
 			if (!data) return undefined;
 			const modifier = getModifier(updater);

@@ -15,32 +15,30 @@ import {
 import styles from "./Footer.module.css";
 import buttonStyles from "~/styles/buttons.module.css";
 import type { Entity } from "megalodon";
+import { useNavigate } from "@solidjs/router";
 
 export default function Footer(
 	props: { status: Entity.Status } & ComponentProps<"footer">,
 ) {
 	const [statusProps, footerProps] = splitProps(props, ["status"]);
+	const navigate = useNavigate();
 	const favorite = useMutationFavorite();
 	const reblog = useMutationReblog();
 	const bookmark = useMutationBookmark();
 
 	const lookFavorited = () =>
-		favorite.isPending
-			? favorite.variables[1]
-			: statusProps.status.favourited;
+		favorite.isPending ? favorite.variables[1] : statusProps.status.favourited;
 	const lookReblogged = () =>
 		reblog.isPending ? reblog.variables[1] : statusProps.status.reblogged;
 	const lookBookmarked = () =>
-		bookmark.isPending
-			? bookmark.variables[1]
-			: statusProps.status.bookmarked;
+		bookmark.isPending ? bookmark.variables[1] : statusProps.status.bookmarked;
 
 	return (
 		<footer class={styles.footer} {...footerProps}>
 			<button
 				title="reply (not implemented)"
 				class={buttonStyles.iconButton}
-				disabled
+				onClick={() => navigate(`/status/${statusProps.status.id}`)}
 			>
 				<ChatMultipleRegular role="img" />
 			</button>
@@ -48,10 +46,7 @@ export default function Footer(
 				title={lookReblogged() ? "remove reblog" : "reblog"}
 				class={buttonStyles.iconButton}
 				onClick={() =>
-					reblog.mutate([
-						statusProps.status.id,
-						!statusProps.status.reblogged,
-					])
+					reblog.mutate([statusProps.status.id, !statusProps.status.reblogged])
 				}
 			>
 				<RepeatRegular role="img" />

@@ -17,9 +17,9 @@ const getHeight = (att: Entity.Attachment) =>
 const getAspect = (att: Entity.Attachment) =>
 	att.meta?.original?.aspect ??
 	att.meta?.aspect ??
-	(getWidth(att) !== undefined && getHeight(att) !== undefined
-		? getWidth(att)! / getHeight(att)!
-		: undefined);
+	(getWidth(att) !== undefined && getHeight(att) !== undefined ?
+		getWidth(att)! / getHeight(att)!
+	:	undefined);
 
 export default function Attachments(props: { status: Entity.Status }) {
 	return (
