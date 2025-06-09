@@ -3,8 +3,10 @@ import RepeatFilled from "@fluentui/svg-icons/icons/arrow_repeat_all_16_filled.s
 import ReplyFilled from "@fluentui/svg-icons/icons/arrow_reply_16_filled.svg?component-solid";
 import ReplyAllFilled from "@fluentui/svg-icons/icons/arrow_reply_all_16_filled.svg?component-solid";
 import { getContentStatus } from "../utils";
+import textStyles from "~/styles/text.module.css";
 import styles from "./HeaderLine.module.css";
 import type { Entity } from "megalodon";
+import { cx } from "~/utils/functions";
 
 export default function HeaderLine(props: { status: Entity.Status }) {
 	const contentStatus = () => getContentStatus(props.status);
@@ -20,16 +22,11 @@ export default function HeaderLine(props: { status: Entity.Status }) {
 			<Show when={contentStatus().in_reply_to_id !== null}>
 				<span class={styles.reblogWrapper}>
 					<span class={styles.reblogAvatarWrapper}>
-						{isThreadReply() ? (
-							<ReplyAllFilled
-								class={styles.reblogIcon}
-								role="img"
-							/>
-						) : (
-							<ReplyFilled class={styles.reblogIcon} role="img" />
-						)}
+						{isThreadReply() ?
+							<ReplyAllFilled class={styles.reblogIcon} role="img" />
+						:	<ReplyFilled class={styles.reblogIcon} role="img" />}
 					</span>
-					<span class={styles.reblogUsername}>
+					<span class={cx(styles.reblogUsername, textStyles.ellipsis)}>
 						<Switch>
 							<Match when={isThreadReply()}>in thread</Match>
 							<Match when={replyToAccount() !== undefined}>
@@ -48,7 +45,7 @@ export default function HeaderLine(props: { status: Entity.Status }) {
 						/>
 						<RepeatFilled class={styles.reblogIcon} role="img" />
 					</span>
-					<span class={styles.reblogUsername}>
+					<span class={cx(styles.reblogUsername, textStyles.ellipsis)}>
 						@{props.status.account.acct}
 					</span>
 				</a>
