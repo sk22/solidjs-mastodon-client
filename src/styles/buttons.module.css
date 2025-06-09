@@ -30,7 +30,6 @@
 	&:active {
 		scale: 0.9;
 		color: var(--color-text-disabled);
-		background-color: var(--color-background-hover);
 	}
 }
 
